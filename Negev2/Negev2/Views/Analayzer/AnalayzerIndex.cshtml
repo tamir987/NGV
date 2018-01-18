@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "ניתוח תכנון קיים";
+}
+
+<h2>This is the Analayzer Home page</h2>
+
+@using (Html.BeginForm("AnalayzerIndex", "Analayzer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.TextBox("file", "", new { type = "file" }) <br />
+        <input type="submit" value="Upload" accept="txt"/>
+        @ViewBag.Message
+    </div>
+}  

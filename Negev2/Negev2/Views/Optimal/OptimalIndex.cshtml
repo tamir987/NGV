@@ -1,0 +1,68 @@
+﻿@model Negev2.ViewModels.OptimalViewModel
+
+@{
+    ViewBag.Title = "הכנסת גידולים";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>This is the Optimal Home page</h2>
+
+<p>
+    @Html.ActionLink("החל תהליך", "Try", "Optimal", null, new { @class = "btn btn-primary" })
+</p>
+
+@* table of each crop that the user entered with it's quantity *@
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>שם</th>
+            <th>כמות</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CurCrops)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* Form for entering crop from list, and quantity *@
+@using (Html.BeginForm("Save", "Optimal"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(c => c.Id)
+        @Html.DropDownListFor(c => c.Id, new SelectList(Model.Crops, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Id)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Quantity)
+        @Html.TextBoxFor(c => c.Quantity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Quantity)
+    </div>
+    @Html.HiddenFor(c => c.Name)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
