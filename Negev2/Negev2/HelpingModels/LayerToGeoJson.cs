@@ -11,14 +11,14 @@ namespace Negev2.HelpingModels
 {
     public partial class LayerToGeoJson
     {
+        [JsonProperty("type")]
+        public string Type { get; set; } = "FeatureCollection";
+
         [JsonProperty("features")]
         public List<FeatureOfLayer> Features { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        //[JsonProperty("name")]
+        //public string Name { get; set; }
 
         public static string ToJson(LayerToGeoJson layer) => JsonConvert.SerializeObject(layer);
         
@@ -26,14 +26,14 @@ namespace Negev2.HelpingModels
 
     public partial class FeatureOfLayer
     {
-        [JsonProperty("geometry")]
-        public GeometryOfLayer Geometry { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; } = "Feature";
 
         [JsonProperty("properties")]
         public PropertiesOfLayer Properties { get; set; }
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonProperty("geometry")]
+        public GeometryOfLayer Geometry { get; set; }
     }
 
     public partial class PropertiesOfLayer
@@ -53,20 +53,20 @@ namespace Negev2.HelpingModels
 
     public partial class GeometryOfLayer
     {
-        [JsonProperty("coordinates")]
-        public ICollection<CoordinateOfLayer> Coordinates { get; set; }
-        //public List<List<List<CoordinateOfLayer>>> Coordinates { get; set; }
-
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = "Polygon";
+
+        [JsonProperty("coordinates")]
+        public List<CoordinateOfLayer> Coordinates { get; set; }
+        //public List<List<List<CoordinateOfLayer>>> Coordinates { get; set; }
     }
 
     public partial struct CoordinateOfLayer
     {
 
-        public double Longtitude { get; set; }
+        public double Longtitude;
 
-        public double Llatitude { get; set; }
+        public double Llatitude;
         // public double? Double;
         // public List<double> DoubleArray;
     }
@@ -78,14 +78,12 @@ namespace Negev2.HelpingModels
             LayerRepository dbLayer = new LayerRepository();
             Layer layer = dbLayer.GetById(id);
             LayerToGeoJson myGeo = new LayerToGeoJson {
-                Name = layer.Name,
-                Type = "FeatureCollection",
+               // Name = layer.Name,
                 Features = new List<FeatureOfLayer>()
             };
             foreach (var item in layer.SitesByYear)
             {
                 FeatureOfLayer currentFeature = new FeatureOfLayer();
-                currentFeature.Type = "Feature";
                 Site curSite = item.CurrentSite;
                 currentFeature.Properties = new PropertiesOfLayer
                 {
@@ -93,7 +91,7 @@ namespace Negev2.HelpingModels
                     SiteName = curSite.Name,
                     CropName = item.CurrentCrop.Name
                 };
-                ICollection<CoordinateOfLayer> curCoordinates = new Collection<CoordinateOfLayer>();
+                List<CoordinateOfLayer> curCoordinates = new List<CoordinateOfLayer>();
                 foreach (var x in curSite.Shape)
                 {
                     curCoordinates.Add(new CoordinateOfLayer
@@ -105,7 +103,6 @@ namespace Negev2.HelpingModels
 
                 currentFeature.Geometry = new GeometryOfLayer
                 {
-                    Type = "Polygon",
                     Coordinates = curCoordinates
                 };
 
