@@ -64,11 +64,12 @@ namespace Negev2.HelpingModels
     public partial struct CoordinateOfLayer
     {
 
-        public double Longtitude;
+        //public double Longtitude;
 
-        public double Llatitude;
+        //public double Llatitude;
         // public double? Double;
-        // public List<double> DoubleArray;
+        
+        public List<double> DoubleArray;
     }
 
     public partial class LayeredGeoJson
@@ -94,11 +95,13 @@ namespace Negev2.HelpingModels
                 List<CoordinateOfLayer> curCoordinates = new List<CoordinateOfLayer>();
                 foreach (var x in curSite.Shape)
                 {
-                    curCoordinates.Add(new CoordinateOfLayer
+                    CoordinateOfLayer temp = new CoordinateOfLayer
                     {
-                        Llatitude = x.Llatitude,
-                        Longtitude = x.Longtitude
-                    });
+                        DoubleArray = new List<double>()
+                    };
+                    temp.DoubleArray.Add(x.Longtitude);
+                    temp.DoubleArray.Add(x.Llatitude);
+                    curCoordinates.Add(temp);
                 }
 
                 currentFeature.Geometry = new GeometryOfLayer
