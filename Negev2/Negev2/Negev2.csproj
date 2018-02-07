@@ -185,6 +185,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Chaka\DBToGeoJson.cs" />
     <Compile Include="HelpingModels\IdToName.cs" />
     <Compile Include="HelpingModels\LayerToGeoJson.cs" />
     <Compile Include="Models\Coordinatez.cs" />

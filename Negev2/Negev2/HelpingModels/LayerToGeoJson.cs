@@ -20,7 +20,7 @@ namespace Negev2.HelpingModels
         //[JsonProperty("name")]
         //public string Name { get; set; }
 
-        public static string ToJson(LayerToGeoJson layer) => JsonConvert.SerializeObject(layer);
+        //public static string ToJson(LayerToGeoJson layer) => JsonConvert.SerializeObject(layer);
         
     }
 
@@ -57,19 +57,87 @@ namespace Negev2.HelpingModels
         public string Type { get; set; } = "Polygon";
 
         [JsonProperty("coordinates")]
-        public List<CoordinateOfLayer> Coordinates { get; set; }
+          public List<List<List<CoordinateOfLayer>>> Coordinates { get; set; }
         //public List<List<List<CoordinateOfLayer>>> Coordinates { get; set; }
     }
 
     public partial struct CoordinateOfLayer
     {
 
-        //public double Longtitude;
-
-        //public double Llatitude;
-        // public double? Double;
-        
+        public double? Double;
         public List<double> DoubleArray;
+    }
+
+    public partial struct CoordinateOfLayer
+    {
+        public CoordinateOfLayer(JsonReader reader, JsonSerializer serializer)
+        {
+            Double = null;
+            DoubleArray = null;
+
+            switch (reader.TokenType)
+            {
+                case JsonToken.Integer:
+                case JsonToken.Float:
+                    Double = serializer.Deserialize<double>(reader);
+                    break;
+                case JsonToken.StartArray:
+                    DoubleArray = serializer.Deserialize<List<double>>(reader);
+                    break;
+                default: throw new Exception("Cannot convert Coordinate");
+            }
+        }
+
+        public void WriteJson(JsonWriter writer, JsonSerializer serializer)
+        {
+            if (Double != null)
+            {
+                serializer.Serialize(writer, Double);
+                return;
+            }
+            if (DoubleArray != null)
+            {
+                serializer.Serialize(writer, DoubleArray);
+                return;
+            }
+            throw new Exception("Union must not be null");
+        }
+    }
+
+
+    public class ConverterO : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(CoordinateOfLayer);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (t == typeof(CoordinateOfLayer))
+                return new CoordinateOfLayer(reader, serializer);
+            throw new Exception("Unknown type");
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            var t = value.GetType();
+            if (t == typeof(CoordinateOfLayer))
+            {
+                ((CoordinateOfLayer)value).WriteJson(writer, serializer);
+                return;
+            }
+            throw new Exception("Unknown type");
+        }
+
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            DateParseHandling = DateParseHandling.None,
+            Converters = { new Converter() },
+        };
+    }
+
+    public static class Serializeo
+    {
+        public static string ToJson(this LayerToGeoJson self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
 
     public partial class LayeredGeoJson
@@ -92,17 +160,23 @@ namespace Negev2.HelpingModels
                     SiteName = curSite.Name,
                     CropName = item.CurrentCrop.Name
                 };
-                List<CoordinateOfLayer> curCoordinates = new List<CoordinateOfLayer>();
+                List<List<List<CoordinateOfLayer>>> curCoordinates = new List<List<List<CoordinateOfLayer>>>();
+                List<List<CoordinateOfLayer>> Insu = new List<List<CoordinateOfLayer>>();
                 foreach (var x in curSite.Shape)
                 {
-                    CoordinateOfLayer temp = new CoordinateOfLayer
-                    {
-                        DoubleArray = new List<double>()
-                    };
-                    temp.DoubleArray.Add(x.Longtitude);
-                    temp.DoubleArray.Add(x.Llatitude);
-                    curCoordinates.Add(temp);
+                    List<CoordinateOfLayer> temp = new List<CoordinateOfLayer>();
+                    CoordinateOfLayer first = new CoordinateOfLayer { Double = x.Longtitude };
+                    CoordinateOfLayer second = new CoordinateOfLayer { Double = x.Llatitude };
+                    temp.Add(first);
+                    temp.Add(second);
+                    //CoordinateOfLayer temp = new CoordinateOfLayer
+                    //{
+                    //  DoubleArray = new List<double>()
+                    //};
+
+                    Insu.Add(temp);
                 }
+                curCoordinates.Add(Insu);
 
                 currentFeature.Geometry = new GeometryOfLayer
                 {
@@ -112,7 +186,7 @@ namespace Negev2.HelpingModels
                 myGeo.Features.Add(currentFeature);
 
             }
-            return LayerToGeoJson.ToJson(myGeo);
+            return Serializeo.ToJson(myGeo);
         }
 
     }
