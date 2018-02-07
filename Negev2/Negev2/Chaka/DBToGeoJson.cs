@@ -20,22 +20,44 @@ namespace Negev2.Chaka
             foreach (var item in layer.SitesByYear)
             {
                 Site curSite = item.CurrentSite;
-                var coordinates = new List<IPosition>();
-                foreach (var x in curSite.Shape)
+                if (curSite.Shape.Count > 3)
                 {
-                    coordinates.Add(new Position(x.Longtitude, x.Llatitude));
-                }
-
-                var polygon = new Polygon(new List<LineString> { new LineString(coordinates) });
-              
-                var props = new Dictionary<string, object>
+                    var coordinates = new List<IPosition>();
+                    foreach (var x in curSite.Shape)
+                    {
+                        coordinates.Add(new Position(x.Longtitude, x.Llatitude));
+                    }
+                    var polygon = new Polygon(new List<LineString> { new LineString(coordinates) });
+                    var props = new Dictionary<string, object>
                 {
                     { "Ezor", curSite.Region },
                     { "SiteName", curSite.Name },
                     { "CropName", item.CurrentCrop.Name }
                 };
-                var feature = new GeoJSON.Net.Feature.Feature(polygon, props);
-                model.Features.Add(feature);
+                    var feature = new GeoJSON.Net.Feature.Feature(polygon, props);
+                    model.Features.Add(feature);
+
+                }
+                else
+                {
+                    var coordinates = new List<Point>();
+                    foreach (var x in curSite.Shape)
+                    {
+                        coordinates.Add(new Point (new Position(x.Longtitude, x.Llatitude) ));
+                    }
+                    var polygon = new MultiPoint(coordinates);
+                    var props = new Dictionary<string, object>
+                {
+                    { "Ezor", curSite.Region },
+                    { "SiteName", curSite.Name },
+                    { "CropName", item.CurrentCrop.Name }
+                };
+                    var feature = new GeoJSON.Net.Feature.Feature(polygon, props);
+                    model.Features.Add(feature);
+                }
+                   
+
+               
             }
             return JsonConvert.SerializeObject(model);
         }
