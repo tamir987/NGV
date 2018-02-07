@@ -59,6 +59,10 @@ namespace Negev2.Chaka
 
                
             }
+    //        string x = JsonConvert.SerializeObject(model);
+  //          FeatureCollection my = JsonConvert.DeserializeObject<FeatureCollection>(x);
+  
+
             return JsonConvert.SerializeObject(model);
         }
     }
