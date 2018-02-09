@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
 using Negev2.Models;
-using Microsoft.SqlServer.Types;
 
 namespace Negev2.Models
 {
@@ -22,9 +21,7 @@ namespace Negev2.Models
 
         public String Region { get; set; }
 
-        //public virtual ICollection<Coordinatez> Shape { get; set; }
-
-        public SqlGeometry Shape { get; set; }
+        public virtual ICollection<Coordinatez> Shape { get; set; }
 
         public virtual ICollection<SiteByYear> SitesByYear { get; set; }
     }

@@ -12,7 +12,7 @@ namespace Negev2.Chaka
 {
     public class DBToGeoJson
     {
-       /* public string GetGeoJson(int id)
+        public string GetGeoJson(int id)
         {
             LayerRepository dbLayer = new LayerRepository();
             Layer layer = dbLayer.GetById(id);
@@ -64,6 +64,6 @@ namespace Negev2.Chaka
   
 
             return JsonConvert.SerializeObject(model);
-        }*/
+        }
     }
 }

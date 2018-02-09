@@ -2,7 +2,6 @@
 using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Microsoft.SqlServer.Types;
 
 namespace Negev2.HelpingModels
 {
@@ -19,8 +18,7 @@ namespace Negev2.HelpingModels
         public partial class Feature
         {
             [JsonProperty("geometry")]
-            public SqlGeometry Geometry { get; set; }
-            //public Geometry Geometry { get; set; }
+            public Geometry Geometry { get; set; }
 
             [JsonProperty("properties")]
             public Properties Properties { get; set; }

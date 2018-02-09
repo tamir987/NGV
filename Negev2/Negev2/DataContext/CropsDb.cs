@@ -28,8 +28,8 @@ namespace Negev2.DataContext
             modelBuilder.Entity<Layer>().ToTable("Layers").HasKey(x => x.Id);
             modelBuilder.Entity<Site>().ToTable("Sites").HasKey(s => s.Id).HasMany<SiteByYear>(g => g.SitesByYear)
                 .WithRequired(s => s.CurrentSite).HasForeignKey<int>(s => s.CurrentSiteId);
-            //modelBuilder.Entity<Coordinatez>().ToTable("Coordinates").HasKey(s => s.Id).HasRequired<Site>(s => s.CurrentSite)
-              //  .WithMany(g => g.Shape).HasForeignKey<int>(s => s.CurrentSiteId).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Coordinatez>().ToTable("Coordinates").HasKey(s => s.Id).HasRequired<Site>(s => s.CurrentSite)
+                .WithMany(g => g.Shape).HasForeignKey<int>(s => s.CurrentSiteId).WillCascadeOnDelete(true);
 
         }
         public DbSet<Crops> Crops { get; set; }

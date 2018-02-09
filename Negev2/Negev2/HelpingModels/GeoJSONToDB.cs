@@ -45,8 +45,7 @@ namespace Negev2.HelpingModels
                         Name = item.Properties.HelName,
                         Dunam = item.Properties.Dunam,
                         Region = item.Properties.Ezor,
-                        //Shape = ConvertToCollection(item.Geometry.Coordinates, item.Geometry.Type),
-                        Shape = item.Geometry,
+                        Shape = ConvertToCollection(item.Geometry.Coordinates, item.Geometry.Type),
                         SitesByYear = new Collection<SiteByYear>()
                     };
                     dbSite.Add(site);
