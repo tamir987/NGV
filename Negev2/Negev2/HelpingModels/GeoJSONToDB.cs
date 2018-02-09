@@ -119,7 +119,7 @@ namespace Negev2.HelpingModels
                     cur.Add(new Coordinatez()
                     {
                         Longtitude = (Double)item.ElementAt(0).Double,
-                        Llatitude = (Double)item.ElementAt(1).Double,
+                        Llatitude = (Double)item.ElementAt(1).Double
                     });
                 }
             }
@@ -131,8 +131,13 @@ namespace Negev2.HelpingModels
                         cur.Add(new Coordinatez()
                         {
                             Longtitude = item.ElementAt(0).DoubleArray[0],
-                            Llatitude = item.ElementAt(0).DoubleArray[1],
+                            Llatitude = item.ElementAt(0).DoubleArray[1]
                         });
+                    cur.Add(new Coordinatez()
+                    {
+                        Longtitude = 0,
+                        Llatitude = 0
+                    });
                 }
 
             }
