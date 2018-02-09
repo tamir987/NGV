@@ -156,3 +156,8 @@ C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\obj\Debug\Negev2.csprojResol
 C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\obj\Debug\Negev2.csproj.CoreCompileInputs.cache
 C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\obj\Debug\Negev2.dll
 C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\obj\Debug\Negev2.pdb
+C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\bin\SqlServerTypes\x64\msvcr120.dll
+C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\bin\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\bin\SqlServerTypes\x86\msvcr120.dll
+C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\bin\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\TAMIR\Desktop\gitHub\NGV\NGV\Negev2\Negev2\bin\Microsoft.SqlServer.Types.dll
