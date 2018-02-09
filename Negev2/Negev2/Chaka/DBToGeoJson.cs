@@ -17,9 +17,10 @@ namespace Negev2.Chaka
             LayerRepository dbLayer = new LayerRepository();
             Layer layer = dbLayer.GetById(id);
             var model = new FeatureCollection();
+            int i;
             foreach (var item in layer.SitesByYear)
             {
-                int i = 0;
+                i = 0;
                 Site curSite = item.CurrentSite;
                 //if (curSite.Shape.Count > 3)
                 //{
@@ -28,7 +29,7 @@ namespace Negev2.Chaka
                     foreach (var x in curSite.Shape)
                     {
                         if (x.Llatitude == 0 && x.Longtitude == 0)
-                          {
+                    {
                         multi.Add(new Polygon(new List<LineString> { new LineString(coordinates) }));
                         coordinates.Clear();
                         i = 1;
