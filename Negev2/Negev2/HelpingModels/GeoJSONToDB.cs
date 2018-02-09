@@ -1,3 +1,4 @@
+using Microsoft.SqlServer.Types;
 using Negev2.DataContext.Repositories;
 using Negev2.Models;
 using Newtonsoft.Json;
@@ -44,7 +45,8 @@ namespace Negev2.HelpingModels
                         Name = item.Properties.HelName,
                         Dunam = item.Properties.Dunam,
                         Region = item.Properties.Ezor,
-                        Shape = ConvertToCollection(item.Geometry.Coordinates, item.Geometry.Type),
+                        //Shape = ConvertToCollection(item.Geometry.Coordinates, item.Geometry.Type),
+                        Shape = item.Geometry,
                         SitesByYear = new Collection<SiteByYear>()
                     };
                     dbSite.Add(site);

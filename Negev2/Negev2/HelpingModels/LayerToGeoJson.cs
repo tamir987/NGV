@@ -162,13 +162,13 @@ namespace Negev2.HelpingModels
                 };
                 List<List<List<CoordinateOfLayer>>> curCoordinates = new List<List<List<CoordinateOfLayer>>>();
                 List<List<CoordinateOfLayer>> Insu = new List<List<CoordinateOfLayer>>();
-                foreach (var x in curSite.Shape)
+                //foreach (var x in curSite.Shape)
                 {
                     List<CoordinateOfLayer> temp = new List<CoordinateOfLayer>();
-                    CoordinateOfLayer first = new CoordinateOfLayer { Double = x.Longtitude };
-                    CoordinateOfLayer second = new CoordinateOfLayer { Double = x.Llatitude };
-                    temp.Add(first);
-                    temp.Add(second);
+                    //CoordinateOfLayer first = new CoordinateOfLayer { Double = x.Longtitude };
+                   // CoordinateOfLayer second = new CoordinateOfLayer { Double = x.Llatitude };
+                   // temp.Add(first);
+                   // temp.Add(second);
                     //CoordinateOfLayer temp = new CoordinateOfLayer
                     //{
                     //  DoubleArray = new List<double>()

@@ -24,7 +24,8 @@ namespace Negev2.Controllers
             // Write that JSON to txt file,  
             //System.IO.File.WriteAllText(path + "output.geojson", geoJson);
             DBToGeoJson vax = new DBToGeoJson();
-            String geoJson = vax.GetGeoJson(1);
+            //String geoJson = vax.GetGeoJson(1);
+            String geoJson = "3";
             return View((object)geoJson);
         }
     }
