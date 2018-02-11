@@ -57,7 +57,7 @@ namespace Negev2.HelpingModels
         public string Type { get; set; } = "Polygon";
 
         [JsonProperty("coordinates")]
-          public List<List<List<CoordinateOfLayer>>> Coordinates { get; set; }
+          public List<List<List<double>>> Coordinates { get; set; }
         //public List<List<List<CoordinateOfLayer>>> Coordinates { get; set; }
     }
 
@@ -160,18 +160,23 @@ namespace Negev2.HelpingModels
                     SiteName = curSite.Name,
                     CropName = item.CurrentCrop.Name
                 };
-                List<List<List<CoordinateOfLayer>>> curCoordinates = new List<List<List<CoordinateOfLayer>>>();
-                List<List<CoordinateOfLayer>> Insu = new List<List<CoordinateOfLayer>>();
-                //foreach (var x in curSite.Shape)
+                // List<List<List<CoordinateOfLayer>>> curCoordinates = new List<List<List<CoordinateOfLayer>>>();
+                // List<List<CoordinateOfLayer>> Insu = new List<List<CoordinateOfLayer>>();
+                List<List<List<double>>> curCoordinates = new List<List<List<double>>>();
+                 List<List<double>> Insu = new List<List<double>>();
+                foreach (var x in curSite.Shape)
                 {
-                    List<CoordinateOfLayer> temp = new List<CoordinateOfLayer>();
+                    //List<CoordinateOfLayer> temp = new List<CoordinateOfLayer>();
                     //CoordinateOfLayer first = new CoordinateOfLayer { Double = x.Longtitude };
-                   // CoordinateOfLayer second = new CoordinateOfLayer { Double = x.Llatitude };
-                   // temp.Add(first);
-                   // temp.Add(second);
+                    //CoordinateOfLayer second = new CoordinateOfLayer { Double = x.Llatitude };
+                    List<double> temp = new List<double>();
+                   // CoordinateOfLayer first = new CoordinateOfLayer { Double = x.Longtitude };
+                    //CoordinateOfLayer second = new CoordinateOfLayer { Double = x.Llatitude };
+                    temp.Add(x.Longtitude);
+                    temp.Add(x.Llatitude);
                     //CoordinateOfLayer temp = new CoordinateOfLayer
                     //{
-                    //  DoubleArray = new List<double>()
+                    //    DoubleArray = new List<double>()
                     //};
 
                     Insu.Add(temp);
