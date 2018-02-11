@@ -30,9 +30,9 @@ namespace Negev2.Chaka
                     {
                         if (x.Llatitude == 0 && x.Longtitude == 0)
                     {
-                        multi.Add(new Polygon(new List<LineString> { new LineString(coordinates) }));
-                        coordinates.Clear();
-                        i = 1;
+                      //  multi.Add(new Polygon(new List<LineString> { new LineString(coordinates) }));
+                      //  coordinates.Clear();
+                      //  i = 1;
                     }
                          
                         else
