@@ -20,12 +20,11 @@
       center: uluru
             });
             map.data.addGeoJson(data);
-            var featureStyle = {
-                strokeColor: '#ff3333',
+        
+            map.data.setStyle({
+                fillColor: 'pink',
                 strokeWeight: 4
-            }
-
-            map.data.setStyle(featureStyle);
+            });
     var marker = new google.maps.Marker({
                 position: uluru,
       map: map

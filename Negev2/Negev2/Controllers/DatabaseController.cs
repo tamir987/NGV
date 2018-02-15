@@ -18,8 +18,10 @@ namespace Negev2.Controllers
 
         public ActionResult GetJson()
         {
-            LayeredGeoJson lay = new LayeredGeoJson();
-            String geoJson = lay.GetGeoJsonByLayer(1);
+            //LayeredGeoJson lay = new LayeredGeoJson();
+            // String geoJson = lay.GetGeoJsonByLayer(1);
+            GeoJSONToDB makeMyDB = new GeoJSONToDB();
+            String geoJson = makeMyDB.GetMyJSON();
             //string path = Server.MapPath("~/App_Data/");
             // Write that JSON to txt file,  
             //System.IO.File.WriteAllText(path + "output.geojson", geoJson);
